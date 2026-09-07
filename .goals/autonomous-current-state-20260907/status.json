@@ -1,7 +1,7 @@
 {
   "contract": "bago.goal-status.v1",
   "goal_id": "autonomous-current-state-20260907",
-  "status": "EXECUTED",
+  "status": "VALIDATED",
   "baseline_commit": "41cd6286819a42304c9795ae999327cc86ad40a4",
   "branch": "main",
   "completed_acceptance_criteria": [
@@ -12,17 +12,11 @@
     "frontend-build",
     "candidate-bound-final-check"
   ],
-  "blocked_acceptance_criteria": [
-    {
-      "id": "repo-sync",
-      "reason": "The working tree is clean after the authorized commit, but main is one commit ahead of origin/main. No push was authorized, so remote synchronization remains blocked.",
-      "external": false
-    }
-  ],
+  "blocked_acceptance_criteria": [],
   "notes": [
     "Goal created from a clean clone of origin/main.",
     "No remote mutation, release, or tag is authorized by this task. The user explicitly authorized committing the local closure evidence.",
-    "HEAD resolves to cb8bf662e4978658da8a731cb8a2d158dbe4f812; origin/main remains at 41cd6286819a42304c9795ae999327cc86ad40a4.",
+    "HEAD and origin/main resolve to d9a4294e850d8c45363a994b470e3cd0493bb8c3.",
     "Version consistency PASS: 4.10.0.",
     "Backend PASS: 1121 passed, 14 skipped, 198 subtests passed.",
     "Frontend typecheck PASS.",
@@ -32,7 +26,7 @@
     "Independent final verifier found no product defect, but correctly rejected the prior VALIDATED claim because the candidate is dirty.",
     "Authorized commits created: chore(bago): record autonomous closure evidence; chore(bago): align closure status with remote boundary.",
     "Fresh BAGO verification passed on the clean committed candidate.",
-    "Closure remains EXECUTED because remote synchronization is not complete and no push was authorized.",
+    "Remote synchronization completed after explicit user authorization.",
     "No product source was changed."
   ]
 }
