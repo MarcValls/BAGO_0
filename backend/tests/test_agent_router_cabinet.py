@@ -89,3 +89,7 @@ def test_polite_change_requests_keep_generator_role(router, task):
     role_ids = {role['id'] for role in router.plan_cabinet(task)['roles']}
 
     assert 'role_production_generador' in role_ids
+
+
+def test_legacy_agent_router_import_uses_routing_module(router):
+    assert router.plan_cabinet.__module__ == 'modules.routing.backend.agent_router'

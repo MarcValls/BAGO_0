@@ -11,6 +11,7 @@ import sys
 import zipfile
 from datetime import datetime, timezone
 from pathlib import Path
+from typing import TypeAlias
 
 ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
@@ -23,6 +24,7 @@ from scripts.packaging_common import normalize_release_version, rel_posix, sha25
 CURRENT_RELEASE = read_release_version(ROOT).strip().lstrip("v")
 PACKAGE_PROVENANCE_CONTRACT = "bago.package-provenance.v1"
 PROVENANCE_PATH = "audit/bago-provenance.json"
+FileEntry: TypeAlias = tuple[Path, str]
 INCLUDE_FILES = [
     ".gitignore",
     ".bago/core/context_store.py",
@@ -77,6 +79,10 @@ INCLUDE_DIRS = [
     "tests",
     "tools",
     "ui-react/dist",
+]
+
+EXTERNAL_INCLUDE_DIRS = [
+    ("../modules", "modules"),
 ]
 
 EXCLUDED_PARTS = {
@@ -238,12 +244,27 @@ def collect_files(root: Path) -> list[Path]:
     return sorted(set(files), key=lambda p: rel_posix(p.relative_to(root)).lower())
 
 
-def _manifest_entries(root: Path, files: list[Path]) -> list[dict]:
+def collect_file_entries(root: Path) -> list[FileEntry]:
+    entries: list[FileEntry] = [(path, rel_posix(path.relative_to(root))) for path in collect_files(root)]
+    for source_rel, archive_prefix in EXTERNAL_INCLUDE_DIRS:
+        source = (root / source_rel).resolve()
+        if not source.exists():
+            continue
+        for file_path in source.rglob("*"):
+            if not file_path.is_file():
+                continue
+            archive_path = Path(archive_prefix) / file_path.relative_to(source)
+            if is_excluded(archive_path):
+                continue
+            entries.append((file_path, rel_posix(archive_path)))
+    return sorted(set(entries), key=lambda entry: entry[1].lower())
+
+
+def _manifest_entries(files: list[FileEntry]) -> list[dict]:
     entries = []
-    for file_path in files:
-        relative = file_path.relative_to(root)
+    for file_path, archive_path in files:
         entries.append({
-            "path": rel_posix(relative),
+            "path": archive_path,
             "size": file_path.stat().st_size,
             "sha256": sha256(file_path),
         })
@@ -268,15 +289,14 @@ def build_install_tree(root: Path, output_dir: Path, release_version: str = "") 
     tree_root = output_dir / "current"
     if tree_root.exists():
         shutil.rmtree(tree_root)
-    files = collect_files(root)
-    manifest_files = _manifest_entries(root, files)
+    files = collect_file_entries(root)
+    manifest_files = _manifest_entries(files)
     provenance = candidate_provenance(root)
     provenance_payload = provenance_bytes(provenance)
     manifest_files.append(provenance_manifest_entry(provenance_payload))
 
-    for file_path in files:
-        relative = file_path.relative_to(root)
-        destination = tree_root / relative
+    for file_path, archive_path in files:
+        destination = tree_root / archive_path
         destination.parent.mkdir(parents=True, exist_ok=True)
         shutil.copy2(file_path, destination)
     provenance_path = tree_root / PROVENANCE_PATH
@@ -354,14 +374,13 @@ def build_package(root: Path, output_dir: Path, release_version: str = "") -> di
         stamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
         package_name = f"bago-v4-local-{stamp}.zip"
     zip_path = output_dir / package_name
-    files = collect_files(root)
-    manifest_files = _manifest_entries(root, files)
+    files = collect_file_entries(root)
+    manifest_files = _manifest_entries(files)
     provenance = candidate_provenance(root)
     provenance_payload = provenance_bytes(provenance)
     manifest_files.append(provenance_manifest_entry(provenance_payload))
     with zipfile.ZipFile(zip_path, "w", compression=zipfile.ZIP_DEFLATED) as zf:
-        for file_path, entry in zip(files, manifest_files):
-            relative = file_path.relative_to(root)
+        for (file_path, _archive_path), entry in zip(files, manifest_files):
             arcname = entry["path"]
             zf.write(file_path, arcname=arcname)
         zf.writestr(PROVENANCE_PATH, provenance_payload)
@@ -446,7 +465,9 @@ def _run_tests() -> int:
                 ".bago/api/bridge.py",
                 ".bago/providers/ollama_local.py",
                 ".bago/tools/orchestrator_v4.py",
+                ".bago/tools/agent_router.py",
                 ".bago/tools/tool_registry.py",
+                "modules/routing/backend/agent_router.py",
                 "docs/contracts/bago_v4_runtime_contract.json",
                 "docs/contracts/bago_v4_repl_contract.md",
                 "docs/contracts/bago_v4_evidence_contract.md",
