@@ -150,6 +150,28 @@ ALLOWED_LEGACY_PATHS = {
 }
 
 
+def _resolve_include_path(root: Path, relative: str) -> Path | None:
+    candidate = root / relative
+    if candidate.is_file():
+        return candidate
+    current = root
+    for part in Path(relative).parts:
+        next_path = current / part
+        if next_path.exists():
+            current = next_path
+            continue
+        lowered = part.lower()
+        try:
+            match = next(
+                child for child in current.iterdir()
+                if child.name.lower() == lowered
+            )
+        except (FileNotFoundError, NotADirectoryError, StopIteration):
+            return None
+        current = match
+    return current if current.is_file() else None
+
+
 def repo_root() -> Path:
     return Path(__file__).resolve().parents[1]
 
@@ -215,7 +237,7 @@ def is_excluded(relative: Path) -> bool:
 
 
 def require_inputs(root: Path) -> None:
-    missing_files = [item for item in INCLUDE_FILES if not (root / item).is_file()]
+    missing_files = [item for item in INCLUDE_FILES if _resolve_include_path(root, item) is None]
     # Directories are optional (e.g. ui-react/dist requires a UI build step).
     # Only fail for missing required files.
     if missing_files:
@@ -227,8 +249,8 @@ def require_inputs(root: Path) -> None:
 def collect_files(root: Path) -> list[Path]:
     files: list[Path] = []
     for item in INCLUDE_FILES:
-        path = root / item
-        if path.is_file() and not is_excluded(path.relative_to(root)):
+        path = _resolve_include_path(root, item)
+        if path is not None and not is_excluded(Path(item)):
             files.append(path)
     for item in INCLUDE_DIRS:
         path = root / item
@@ -245,7 +267,15 @@ def collect_files(root: Path) -> list[Path]:
 
 
 def collect_file_entries(root: Path) -> list[FileEntry]:
-    entries: list[FileEntry] = [(path, rel_posix(path.relative_to(root))) for path in collect_files(root)]
+    entries: list[FileEntry] = []
+    for item in INCLUDE_FILES:
+        path = _resolve_include_path(root, item)
+        if path is not None and not is_excluded(Path(item)):
+            entries.append((path, rel_posix(Path(item))))
+    for path in collect_files(root):
+        if any(path == file_path for file_path, _archive_path in entries):
+            continue
+        entries.append((path, rel_posix(path.relative_to(root))))
     for source_rel, archive_prefix in EXTERNAL_INCLUDE_DIRS:
         source = (root / source_rel).resolve()
         if not source.exists():
