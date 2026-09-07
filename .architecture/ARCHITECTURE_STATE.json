@@ -1,0 +1,11 @@
+{
+  "status": "EXPERIMENTAL_LAB",
+  "source_repository": "MarcValls/BAGO",
+  "source_baseline_sha": "0ad5009565ad9f04533d7373a1fef45c6349dce5",
+  "lab_repository": "MarcValls/BAGO_0",
+  "lab_branch": "lab/repository-reorganization",
+  "phase": "phase-0-boundary-scaffold",
+  "behavior_change_authorized": false,
+  "implementation_files_moved": false,
+  "next_allowed_operation": "repo.plan_modularization"
+}

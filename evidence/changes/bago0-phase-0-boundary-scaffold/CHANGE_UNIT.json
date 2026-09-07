@@ -1,0 +1,41 @@
+{
+  "$schema": "../../../backend/docs/repository-engineering/CHANGE_UNIT.schema.json",
+  "id": "bago0.phase-0-boundary-scaffold",
+  "operation": "modularize",
+  "target_module": "repository.physical-layout",
+  "allowed_files": [
+    ".architecture/**",
+    "kernel/**",
+    "modules/**",
+    "adapters/**",
+    "apps/**",
+    "contracts/**",
+    "integration/**",
+    "evidence/changes/bago0-phase-0-boundary-scaffold/**"
+  ],
+  "allowed_dependencies": [
+    "backend/docs/repository-engineering/**",
+    "README.md",
+    "backend/docs/ARCHITECTURE.md"
+  ],
+  "forbidden_dependencies": [
+    "implementation file moves",
+    "runtime behavior changes",
+    "origin/main mutation"
+  ],
+  "public_contract_changes": false,
+  "required_tests": [
+    "json-parse .architecture/ARCHITECTURE_STATE.json",
+    "json-parse evidence/changes/bago0-phase-0-boundary-scaffold/CHANGE_UNIT.json",
+    "git diff --check"
+  ],
+  "required_evidence": [
+    "characterization_tests",
+    "source baseline 0ad5009565ad9f04533d7373a1fef45c6349dce5",
+    "documentation-only diff"
+  ],
+  "closure": "EXECUTED",
+  "behavior_change_authorized": false,
+  "boundary_escalation": true,
+  "notes": "Phase 0 creates capability-boundary placeholders only. No executable source is moved."
+}
