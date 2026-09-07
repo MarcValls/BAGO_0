@@ -6,7 +6,7 @@ resolver el primer defecto reproducible que impida un estado sano sin ampliar
 el alcance ni alterar autoridad externa.
 
 ## Acceptance criteria
-- [ ] El repositorio queda limpio y sincronizado con `origin/main` antes de la verificación final. Pendiente de commit autorizado y verificación fresca.
+- [ ] El repositorio queda limpio y sincronizado con `origin/main` antes de la verificación final. El árbol está limpio, pero `main` está un commit por delante de `origin/main`; no se hace push sin autorización explícita.
 - [x] La versión canónica y sus proyecciones no presentan drift.
 - [x] Los gates aplicables de backend y frontend se ejecutan con resultado documentado.
 - [x] Todo defecto corregido queda cubierto por una verificación reproducible; no se detectó defecto de producto.
