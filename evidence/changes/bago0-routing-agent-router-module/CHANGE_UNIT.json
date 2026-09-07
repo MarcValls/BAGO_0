@@ -1,0 +1,44 @@
+{
+  "$schema": "../../../backend/docs/repository-engineering/CHANGE_UNIT.schema.json",
+  "id": "bago0.routing-agent-router-module",
+  "operation": "modularize",
+  "target_module": "modules.routing",
+  "allowed_files": [
+    "backend/.bago/tools/agent_router.py",
+    "backend/scripts/package_v4.py",
+    "backend/tests/test_agent_router_cabinet.py",
+    "modules/__init__.py",
+    "modules/routing/**",
+    "evidence/changes/bago0-routing-agent-router-module/**"
+  ],
+  "allowed_dependencies": [
+    "backend/.bago/tools/_path_helper.py",
+    "backend/.bago/tools/bago_utils.py",
+    "backend/.bago/tools/orchestrator_v4.py",
+    "backend/.bago/roles/**",
+    "backend/scripts/package_v4.py"
+  ],
+  "forbidden_dependencies": [
+    "runtime behavior changes",
+    "frontend navigation moves",
+    "route alias moves",
+    "BAGO origin/main mutation"
+  ],
+  "public_contract_changes": false,
+  "required_tests": [
+    "python -m pytest backend/tests/test_agent_router_cabinet.py backend/tests/test_packaging.py -q",
+    "python backend/.bago/tools/agent_router.py --cabinet --task \"Can you implement a widget and run tests?\" --json",
+    "python -c json parse for change units",
+    "git diff --check"
+  ],
+  "required_evidence": [
+    "characterization_tests",
+    "compatibility wrapper execution",
+    "packaged module inclusion",
+    "documentation-only boundary update"
+  ],
+  "closure": "EXECUTED",
+  "behavior_change_authorized": false,
+  "boundary_escalation": true,
+  "notes": "First real BAGO_0 module migration: implementation moved behind a compatibility wrapper."
+}
