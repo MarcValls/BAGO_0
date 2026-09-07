@@ -102,6 +102,8 @@ def test_release_package_excludes_install_config_and_includes_uninstaller() -> N
         assert "uninstall-bago.ps1" in names
         assert "uninstall-bago.cmd" in names
         assert "bago_core/translators/__init__.py" in names
+        assert ".bago/tools/agent_router.py" in names
+        assert "modules/routing/backend/agent_router.py" in names
         assert not any(name.startswith("docs/archive/") for name in names)
 
     # 2026-Q2 cleanup: bootstrap docs (MODEL_PARALLEL_SETUP.md, AUDIT_PARALLEL_SETUP.md)
