@@ -7,22 +7,21 @@
 
 import type {
   ContextBankItemKind,
+  ContextNodePriority,
+  ContextNodeStatus,
   ContextNodeType,
+  ContextPackStatus,
   ContextSourceKind
 } from '../../../../modules/context/contracts/contextBankMapping';
 
-export type { ContextBankItemKind, ContextNodeType, ContextSourceKind };
-
-export type ContextNodeStatus =
-  | 'active'
-  | 'proposed'
-  | 'excluded'
-  | 'archived'
-  | 'canon'
-  | 'conflict'
-  | 'stale';
-
-export type ContextNodePriority = 'low' | 'medium' | 'high' | 'critical';
+export type {
+  ContextBankItemKind,
+  ContextNodePriority,
+  ContextNodeStatus,
+  ContextNodeType,
+  ContextPackStatus,
+  ContextSourceKind
+};
 
 export type ContextNodeAuthor = 'user' | 'chat' | 'system';
 
@@ -69,8 +68,6 @@ export interface ContextTree {
   rootId: string;
   nodes: Record<string, ContextNode>;
 }
-
-export type ContextPackStatus = 'draft' | 'valid' | 'warning' | 'blocked' | 'compiled';
 
 export interface ContextPack {
   id: string;

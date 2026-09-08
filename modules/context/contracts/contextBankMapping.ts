@@ -38,3 +38,16 @@ export type ContextSourceKind =
   | 'history'
   | 'interpret_rule'
   | 'project_status';
+
+export type ContextNodeStatus =
+  | 'active'
+  | 'proposed'
+  | 'excluded'
+  | 'archived'
+  | 'canon'
+  | 'conflict'
+  | 'stale';
+
+export type ContextNodePriority = 'low' | 'medium' | 'high' | 'critical';
+
+export type ContextPackStatus = 'draft' | 'valid' | 'warning' | 'blocked' | 'compiled';
