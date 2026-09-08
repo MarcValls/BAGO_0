@@ -28,6 +28,7 @@
     "architecture-v0 baseline document",
     "characterization_tests",
     "independent architecture review",
+    "administrative metadata diff audit",
     "documentation-only diff"
   ],
   "closure": "VERIFIED",
