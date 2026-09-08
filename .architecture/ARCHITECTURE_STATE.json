@@ -1,11 +1,29 @@
 {
-  "status": "EXPERIMENTAL_LAB",
+  "status": "ARCHITECTURE_V0_EXPERIMENTAL",
+  "architecture_version": "0",
   "source_repository": "MarcValls/BAGO",
   "source_baseline_sha": "0ad5009565ad9f04533d7373a1fef45c6349dce5",
   "lab_repository": "MarcValls/BAGO_0",
   "lab_branch": "lab/repository-reorganization",
-  "phase": "phase-0-boundary-scaffold",
+  "phase": "architecture-v0-baseline",
   "behavior_change_authorized": false,
   "implementation_files_moved": false,
-  "next_allowed_operation": "repo.plan_modularization"
+  "next_allowed_operation": "repo.plan_modularization",
+  "current_candidate_sha": "a2e90d26fbe8f83c1666068e54900c983ecf028a",
+  "implemented_slices": [
+    "modules.routing.backend.agent_router"
+  ],
+  "pending_slices": [
+    "session",
+    "context",
+    "permissions",
+    "providers",
+    "models",
+    "execution",
+    "evidence",
+    "workspace",
+    "agents",
+    "simulation",
+    "interpretation"
+  ]
 }

@@ -1,0 +1,38 @@
+{
+  "$schema": "../../../backend/docs/repository-engineering/CHANGE_UNIT.schema.json",
+  "id": "bago0.architecture-v0-baseline",
+  "operation": "modularize",
+  "target_module": "repository.architecture-v0",
+  "allowed_files": [
+    ".architecture/**",
+    "evidence/changes/bago0-architecture-v0-baseline/**"
+  ],
+  "allowed_dependencies": [
+    "backend/docs/repository-engineering/**",
+    "backend/docs/ARCHITECTURE.md",
+    "evidence/changes/bago0-routing-agent-router-module/**"
+  ],
+  "forbidden_dependencies": [
+    "implementation file moves",
+    "runtime behavior changes",
+    "public contract changes",
+    "origin/main mutation"
+  ],
+  "public_contract_changes": false,
+  "required_tests": [
+    "json-parse .architecture/ARCHITECTURE_STATE.json",
+    "json-parse evidence/changes/bago0-architecture-v0-baseline/CHANGE_UNIT.json",
+    "python -m pytest backend/tests/test_agent_router_cabinet.py backend/tests/test_packaging.py -q",
+    "git diff --check"
+  ],
+  "required_evidence": [
+    "architecture-v0 baseline document",
+    "characterization_tests",
+    "independent architecture review",
+    "documentation-only diff"
+  ],
+  "closure": "PREPARED",
+  "behavior_change_authorized": false,
+  "boundary_escalation": true,
+  "notes": "Architecture _0 prepares the first coherent capability layout and records the existing routing migration; it does not authorize further moves."
+}
