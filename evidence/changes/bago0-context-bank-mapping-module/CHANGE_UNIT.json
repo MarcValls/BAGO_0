@@ -40,7 +40,7 @@
   "closure": "VERIFIED",
   "behavior_change_authorized": false,
   "boundary_escalation": true,
-  "candidate_sha": "984d7db6c11306d9fb766248dc61b43e9001968b",
+  "candidate_sha": "2a121aa160063d03b81cce0f2d43867a504f524e",
   "verification_receipts": [
     ".bago/evidence/remediation-gates/context-bank-mapping-backend-tests.json",
     ".bago/evidence/remediation-gates/context-bank-mapping-frontend-tests.json",
