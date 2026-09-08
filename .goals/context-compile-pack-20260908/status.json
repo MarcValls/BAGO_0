@@ -1,10 +1,16 @@
 {
   "contract": "bago.goal-status.v1",
   "goal_id": "context-compile-pack-20260908",
-  "status": "PREPARED",
+  "status": "VERIFIED",
   "baseline_commit": "2633ce2613e9fcee2902c0c491af87e8733babba",
   "branch": "main",
-  "completed_acceptance_criteria": [],
+  "completed_acceptance_criteria": [
+    "implementation-under-modules-context",
+    "compatibility-wrapper-preserved",
+    "compiled-pack-behavior-characterized",
+    "no-runtime-or-contract-change",
+    "gates-and-independent-review"
+  ],
   "blocked_acceptance_criteria": [],
   "notes": [
     "Pure context pack compiler slice only.",
