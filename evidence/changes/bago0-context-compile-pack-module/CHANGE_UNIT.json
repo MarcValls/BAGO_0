@@ -1,0 +1,40 @@
+{
+  "id": "bago0.context-compile-pack-module",
+  "operation": "modularize",
+  "target_module": "modules.context",
+  "allowed_files": [
+    "modules/context/**",
+    "frontend/src/features/context-tree/compileContextPack.ts",
+    "frontend/tests/context-regressions.test.ts",
+    "evidence/changes/bago0-context-compile-pack-module/**",
+    ".goals/context-compile-pack-20260908/**"
+  ],
+  "allowed_dependencies": [
+    "modules/context/frontend/**"
+  ],
+  "forbidden_dependencies": [
+    "context state ownership changes",
+    "API or persistence changes",
+    "runtime behavior changes",
+    "public contract changes",
+    "origin/main mutation"
+  ],
+  "public_contract_changes": false,
+  "required_tests": [
+    "python -m pytest backend/tests -q",
+    "npm run typecheck --workspace frontend",
+    "npm run test:frontend",
+    "npm run build",
+    "git diff --check"
+  ],
+  "required_evidence": [
+    "characterization_tests",
+    "compatibility wrapper execution",
+    "pure compiler boundary",
+    "independent architecture review"
+  ],
+  "closure": "PREPARED",
+  "behavior_change_authorized": false,
+  "boundary_escalation": true,
+  "notes": "Pure pack compilation only; persistence, tree state and API remain in their existing frontend/backend authorities."
+}

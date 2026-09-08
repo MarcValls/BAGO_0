@@ -37,6 +37,54 @@ describe('canonical context regressions', () => {
     expect(compiled).toMatchObject({ conflicts: 1, proposals: 0, staleCount: 0, weightTokens: 12 });
   });
 
+  it('preserves compact hierarchy, ordering and notes when compiling a pack', () => {
+    const root = node({ id: 'root', parentId: null, type: 'root', status: 'active', conflictNodeIds: [] });
+    const parent = node({ id: 'parent', parentId: 'root', type: 'source', title: 'Parent', status: 'active', conflictNodeIds: [] });
+    const child = node({
+      id: 'child', parentId: 'parent', type: 'note', title: 'Zeta', status: 'active',
+      summary: 'Child summary', conflictNodeIds: [], tags: ['tag']
+    });
+    const sibling = node({ id: 'sibling', parentId: 'parent', type: 'note', title: 'Alpha', status: 'active', conflictNodeIds: [] });
+    const tree: ContextTree = {
+      id: 'tree-1', name: 'Tree', archived: false, createdAt: root.createdAt,
+      updatedAt: root.updatedAt, rootId: root.id, nodes: { root, parent, child, sibling }
+    };
+    const pack: ContextPack = {
+      id: 'pack-1', treeId: tree.id, name: 'Pack', status: 'draft', nodeIds: ['child', 'sibling'],
+      weightTokens: 0, conflicts: 0, proposals: 0, staleCount: 0, notes: 'Keep this context'
+    };
+
+    const compiled = compileContextPack(tree, pack);
+
+    expect(compiled.markdown).toContain('**Parent**');
+    expect(compiled.markdown).toContain('**Zeta**');
+    expect(compiled.markdown).toContain('**Alpha**');
+    expect(compiled.markdown.indexOf('**Alpha**')).toBeLessThan(compiled.markdown.indexOf('**Zeta**'));
+    expect(compiled.markdown).toContain('## Notas\n\nKeep this context');
+  });
+
+  it('renders body lines and source references in the compiled markdown', () => {
+    const root = node({ id: 'root', parentId: null, type: 'root', status: 'active', conflictNodeIds: [] });
+    const selected = node({
+      id: 'selected', parentId: 'root', title: 'Selected', status: 'active',
+      body: 'First line\nSecond line', sourceRefs: [{ kind: 'workspace_file', path: 'README.md' }],
+      conflictNodeIds: []
+    });
+    const tree: ContextTree = {
+      id: 'tree-1', name: 'Tree', archived: false, createdAt: root.createdAt,
+      updatedAt: root.updatedAt, rootId: root.id, nodes: { root, selected }
+    };
+    const pack: ContextPack = {
+      id: 'pack-1', treeId: tree.id, name: 'Pack', status: 'draft', nodeIds: ['selected'],
+      weightTokens: 0, conflicts: 0, proposals: 0, staleCount: 0
+    };
+
+    const compiled = compileContextPack(tree, pack);
+
+    expect(compiled.markdown).toContain('refs:workspace_file:README.md');
+    expect(compiled.markdown).toContain('First line\n  Second line');
+  });
+
   it.each([
     ['workspace_file', 'file'],
     ['risk', 'risk'],

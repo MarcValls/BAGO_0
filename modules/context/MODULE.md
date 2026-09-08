@@ -14,7 +14,10 @@ Current implementation candidates:
 Migrated implementation:
 
 - `modules/context/frontend/contextBankMapping.ts`
+- `modules/context/frontend/compileContextPack.ts`
 - `frontend/src/features/context-tree/contextBankMapping.ts` remains the
+  compatibility entrypoint.
+- `frontend/src/features/context-tree/compileContextPack.ts` remains the
   compatibility entrypoint.
 
 Allowed dependencies: `kernel`, `contracts`, `modules/session`,

@@ -1,0 +1,14 @@
+{
+  "contract": "bago.goal-status.v1",
+  "goal_id": "context-compile-pack-20260908",
+  "status": "PREPARED",
+  "baseline_commit": "2633ce2613e9fcee2902c0c491af87e8733babba",
+  "branch": "main",
+  "completed_acceptance_criteria": [],
+  "blocked_acceptance_criteria": [],
+  "notes": [
+    "Pure context pack compiler slice only.",
+    "Existing frontend path remains the compatibility entrypoint.",
+    "No persistence, API or state ownership changes."
+  ]
+}
