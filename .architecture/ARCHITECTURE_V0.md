@@ -1,10 +1,13 @@
 # BAGO_0 Architecture _0
 
-Status: **EXECUTED · EXPERIMENTAL**
+Status: **VERIFIED · EXPERIMENTAL**
 
-Baseline candidate: `a2e90d26fbe8f83c1666068e54900c983ecf028a`  
-Branch: `main`  
+Architecture baseline candidate: `149cf3ec5610c3fb1a07197825bfd867efb3aa78`
+Branch: `main`
 Remote: `https://github.com/MarcValls/BAGO_0.git`
+
+The later closure commits update only architecture evidence metadata; the
+baseline implementation remains the candidate above.
 
 ## Intent
 
