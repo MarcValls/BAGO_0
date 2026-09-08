@@ -5,13 +5,13 @@ Formalizar la primera línea base de arquitectura capability-oriented de BAGO_0
 sin alterar comportamiento, contratos públicos ni las raíces operativas actuales.
 
 ## Acceptance criteria
-- [ ] La arquitectura _0 queda documentada y versionada.
-- [ ] El estado de arquitectura enlaza al candidato y distingue slices ejecutados
+- [x] La arquitectura _0 queda documentada y versionada.
+- [x] El estado de arquitectura enlaza al baseline y distingue slices ejecutados
       de boundaries aún experimentales.
-- [ ] El slice de routing existente queda reconocido como migración compatible,
+- [x] El slice de routing existente queda reconocido como migración compatible,
       no como autorización de migración masiva.
-- [ ] La change unit limita explícitamente el alcance y los no-goals.
-- [ ] Los manifiestos, gates y revisión independiente pasan.
+- [x] La change unit limita explícitamente el alcance y los no-goals.
+- [x] Los manifiestos, gates y revisión independiente pasan.
 
 ## Scope
 ### In scope

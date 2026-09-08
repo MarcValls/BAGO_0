@@ -1,8 +1,8 @@
 # Evidence: BAGO_0 Architecture _0 baseline
 
-Status: **PREPARED**
+Status: **EXECUTED**
 
-Architecture _0 prepares the formal record of the existing phase-0 boundary scaffold plus the
+Architecture _0 formalizes the existing phase-0 boundary scaffold plus the
 already executed routing slice. It is documentation and state metadata only;
 it does not move implementation files or change runtime behavior.
 

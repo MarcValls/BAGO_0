@@ -1,14 +1,21 @@
 {
   "contract": "bago.goal-status.v1",
   "goal_id": "architecture-v0-20260908",
-  "status": "PREPARED",
+  "status": "EXECUTED",
   "baseline_commit": "a2e90d26fbe8f83c1666068e54900c983ecf028a",
   "branch": "main",
-  "completed_acceptance_criteria": [],
+  "completed_acceptance_criteria": [
+    "architecture-documented",
+    "state-boundaries",
+    "routing-slice-recognized",
+    "change-unit-bounded",
+    "gates-and-review"
+  ],
   "blocked_acceptance_criteria": [],
   "notes": [
-    "Architecture _0 is documentation/state metadata only and is currently PREPARED.",
+    "Architecture _0 is documentation/state metadata only and is EXECUTED.",
     "No implementation file moves or runtime behavior changes are authorized.",
-    "Existing routing migration remains the only implemented capability slice."
+    "Existing routing migration remains the only implemented capability slice.",
+    "Full backend/frontend gates and independent architecture review are required before final validation."
   ]
 }

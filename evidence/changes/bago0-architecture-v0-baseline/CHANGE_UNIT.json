@@ -31,8 +31,8 @@
     "independent architecture review",
     "documentation-only diff"
   ],
-  "closure": "PREPARED",
+  "closure": "EXECUTED",
   "behavior_change_authorized": false,
   "boundary_escalation": true,
-  "notes": "Architecture _0 prepares the first coherent capability layout and records the existing routing migration; it does not authorize further moves."
+  "notes": "Architecture _0 establishes the first coherent capability layout and records the existing routing migration; it does not authorize further moves."
 }

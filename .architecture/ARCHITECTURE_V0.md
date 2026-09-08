@@ -1,6 +1,6 @@
 # BAGO_0 Architecture _0
 
-Status: **PREPARED · EXPERIMENTAL**
+Status: **EXECUTED · EXPERIMENTAL**
 
 Baseline candidate: `a2e90d26fbe8f83c1666068e54900c983ecf028a`  
 Branch: `main`  
@@ -8,7 +8,7 @@ Remote: `https://github.com/MarcValls/BAGO_0.git`
 
 ## Intent
 
-Architecture _0 prepares the first capability-oriented map for BAGO_0 while
+Architecture _0 establishes the first capability-oriented map for BAGO_0 while
 keeping the existing runtime roots operational. It is a structural baseline,
 not a product feature release and not a migration authorization for all
 modules.
