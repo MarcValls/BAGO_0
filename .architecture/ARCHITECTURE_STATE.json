@@ -11,7 +11,8 @@
   "next_allowed_operation": "repo.plan_modularization",
   "baseline_candidate_sha": "149cf3ec5610c3fb1a07197825bfd867efb3aa78",
   "implemented_slices": [
-    "modules.routing.backend.agent_router"
+    "modules.routing.backend.agent_router",
+    "modules.context.frontend.contextBankMapping"
   ],
   "pending_slices": [
     "session",

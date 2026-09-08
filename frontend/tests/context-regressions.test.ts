@@ -1,6 +1,9 @@
 import { describe, expect, it, vi } from 'vitest';
 import { compileContextPack } from '../src/features/context-tree/compileContextPack';
-import { contextNodeTypeForBankItem } from '../src/features/context-tree/contextBankMapping';
+import {
+  contextNodeTypeForBankItem,
+  contextSourceKindForBankItem
+} from '../src/features/context-tree/contextBankMapping';
 import { createContextActions, type ContextActionDeps } from '../src/features/context-menu/contextActions';
 import type { SelectionRecord } from '../src/contracts/backend';
 import type { ContextNode, ContextPack, ContextTree } from '../src/features/context-tree/contextTreeTypes';
@@ -40,6 +43,15 @@ describe('canonical context regressions', () => {
     ['pending', 'pending']
   ] as const)('maps %s bank items to %s nodes', (kind, expected) => {
     expect(contextNodeTypeForBankItem(kind)).toBe(expected);
+  });
+
+  it.each([
+    ['workspace_file', 'workspace_file'],
+    ['claim', 'evidence'],
+    ['memory', 'memory'],
+    ['manual', 'manual']
+  ] as const)('maps %s bank items to %s source kinds', (kind, expected) => {
+    expect(contextSourceKindForBankItem(kind)).toBe(expected);
   });
 
   it('opens Chat after preparing a contextual draft', () => {

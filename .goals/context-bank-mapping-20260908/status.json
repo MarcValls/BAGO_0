@@ -1,0 +1,20 @@
+{
+  "contract": "bago.goal-status.v1",
+  "goal_id": "context-bank-mapping-20260908",
+  "status": "VERIFIED",
+  "baseline_commit": "984d7db6c11306d9fb766248dc61b43e9001968b",
+  "branch": "main",
+  "completed_acceptance_criteria": [
+    "implementation-under-modules-context",
+    "compatibility-wrapper-preserved",
+    "shared-type-authority-centralized",
+    "no-runtime-or-contract-change",
+    "gates-and-independent-review"
+  ],
+  "blocked_acceptance_criteria": [],
+  "notes": [
+    "Pure context mapping slice only.",
+    "Existing frontend path remains the compatibility entrypoint.",
+    "No persistence, API or state ownership changes."
+  ]
+}

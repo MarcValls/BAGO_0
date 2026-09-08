@@ -1,0 +1,52 @@
+{
+  "id": "bago0.context-bank-mapping-module",
+  "operation": "modularize",
+  "target_module": "modules.context",
+  "allowed_files": [
+    "modules/context/**",
+    "frontend/src/features/context-tree/contextBankMapping.ts",
+    "frontend/src/features/context-tree/contextTreeTypes.ts",
+    "frontend/tests/context-regressions.test.ts",
+    ".architecture/ARCHITECTURE_STATE.json",
+    ".bago/runtime/ACTIVE_HANDOFF.md",
+    ".goals/context-bank-mapping-20260908/**",
+    "evidence/changes/bago0-context-bank-mapping-module/**"
+  ],
+  "allowed_dependencies": [
+    "modules/context/frontend/**",
+    "modules/context/contracts/**"
+  ],
+  "forbidden_dependencies": [
+    "context state ownership changes",
+    "API or persistence changes",
+    "runtime behavior changes",
+    "public contract changes",
+    "origin/main mutation"
+  ],
+  "public_contract_changes": false,
+  "required_tests": [
+    "python -m pytest backend/tests -q",
+    "npm run typecheck --workspace frontend",
+    "npm run test:frontend",
+    "npm run build",
+    "git diff --check"
+  ],
+  "required_evidence": [
+    "characterization_tests",
+    "compatibility wrapper execution",
+    "pure mapping boundary",
+    "independent architecture review"
+  ],
+  "closure": "VERIFIED",
+  "behavior_change_authorized": false,
+  "boundary_escalation": true,
+  "candidate_sha": "984d7db6c11306d9fb766248dc61b43e9001968b",
+  "verification_receipts": [
+    ".bago/evidence/remediation-gates/context-bank-mapping-backend-tests.json",
+    ".bago/evidence/remediation-gates/context-bank-mapping-frontend-tests.json",
+    ".bago/evidence/remediation-gates/context-bank-mapping-typecheck.json",
+    ".bago/evidence/remediation-gates/context-bank-mapping-build.json",
+    ".bago/evidence/remediation-gates/context-bank-mapping-diff-check.json"
+  ],
+  "notes": "First context capability slice; persistence, tree state and API remain in their existing frontend/backend authorities. Independent review is recorded in ARCHITECTURE_REVIEW.md."
+}

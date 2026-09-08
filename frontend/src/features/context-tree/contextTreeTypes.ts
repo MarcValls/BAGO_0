@@ -5,20 +5,13 @@
 // nuevos: persistimos en archivos dentro de .bago/context/ vía
 // /files/read y /files/write (ver contextTreeApi.ts).
 
-export type ContextNodeType =
-  | 'root'
-  | 'intent'
-  | 'source'
-  | 'file'
-  | 'decision'
-  | 'rule'
-  | 'claim'
-  | 'risk'
-  | 'pending'
-  | 'evidence'
-  | 'proposal'
-  | 'pack'
-  | 'note';
+import type {
+  ContextBankItemKind,
+  ContextNodeType,
+  ContextSourceKind
+} from '../../../../modules/context/contracts/contextBankMapping';
+
+export type { ContextBankItemKind, ContextNodeType, ContextSourceKind };
 
 export type ContextNodeStatus =
   | 'active'
@@ -34,17 +27,7 @@ export type ContextNodePriority = 'low' | 'medium' | 'high' | 'critical';
 export type ContextNodeAuthor = 'user' | 'chat' | 'system';
 
 export interface ContextSourceRef {
-  kind:
-    | 'workspace_file'
-    | 'workspace_directory'
-    | 'chat_turn'
-    | 'pipeline_step'
-    | 'manual'
-    | 'evidence'
-    | 'memory'
-    | 'history'
-    | 'interpret_rule'
-    | 'project_status';
+  kind: ContextSourceKind;
   path?: string;
   id?: string;
   label?: string;
@@ -155,21 +138,6 @@ export interface ContextReceipt {
   createdAt: string;
   createdBy: ContextNodeAuthor;
 }
-
-// Piezas que se pueden arrastrar al árbol desde el Banco contextual.
-export type ContextBankItemKind =
-  | 'workspace_file'
-  | 'workspace_directory'
-  | 'source_root'
-  | 'claim'
-  | 'risk'
-  | 'pending'
-  | 'receipt'
-  | 'memory'
-  | 'history'
-  | 'rule'
-  | 'project_status'
-  | 'manual';
 
 export interface ContextBankItem {
   id: string;
